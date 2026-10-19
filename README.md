@@ -46,12 +46,15 @@ A date selector drives every figure on the dashboard, with a choice of a single 
  
 The dashboard shows:
  
-- Total revenue
-- Stock spending
-- Wages
-- Profit after stock and wages
-- Spending broken down by category
-- Daily sales summary
+- Gross Revenue
+- Total Expenses
+- Salaries
+- Net Margin
+- Net Profit
+- Sales Trend
+- KPI details of selected time period
+
+<img width="1833" height="1104" alt="Cafe_finance_tracker_dashboard" src="https://github.com/user-attachments/assets/7273a519-b3c1-4d9c-bf5a-99eea8947c29" />
 
 ---
 
