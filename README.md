@@ -16,4 +16,57 @@ The system pulls data from three sources into one workbook and reports on it dai
 |---|---|---|
 | Dojo card terminal | REST API via Power Query | Daily card takings |
 | Business bank statements | Monthly CSV files via Power Query | Categorised expenses |
-| Payroll and fixed costs | Manual tables inside the workbook | Salaries, rent accruals |
+| Payroll and fixed costs | Manual tables inside the workbook | Salaries, manual expenses |
+
+## What it consists of
+
+Card takings used to be downloaded as a file and copied into the workbook by hand every day. The workbook now connects straight to the card payment provider and brings the figures in by itself.
+ 
+The connection takes care of the following items:
+
+- Refunds are taken off the day's sales
+- Repeated records are removed
+- Only completed days are brought in, so a day still in progress does not appear
+
+The figures land in their own table and feed the sales ledger by date via XLOOKUP. The automated figures and the hand-entered cash are kept apart.
+
+### Spending from bank statements
+
+Monthly bank statement files are saved to a folder. The workbook reads every file in that folder and combines them.
+
+- The merchant/supplier name is pulled out of the bank's description text
+- A lookup list matches each name to a spending category
+- Anything the list does not recognise is labelled rather than dropped, so it stays visible and can be looked into
+
+Categories used: stock, supplies, utilities, equipment, subscriptions, bank fees and rent.
+
+### Dashboard
+
+A date selector drives every figure on the dashboard, with a choice of a single month or a custom range.
+ 
+The dashboard shows:
+ 
+- Total revenue
+- Stock spending
+- Wages
+- Profit after stock and wages
+- Spending broken down by category
+- Daily sales summary
+
+---
+
+## How it is set up
+
+Automated figures and hand-entered figures sit in separate tables, so an update only touches the automated side.
+ 
+Spending that does not match the lookup list is labelled rather than removed, so it still appears in the totals.
+ 
+Stock costs and running costs are recorded under separate categories and reported separately.
+ 
+The steps that clean and combine the data are held in Power Query rather than in cell formulas, so they run again each time the workbook is updated.
+
+---
+
+## Tools used
+ 
+Excel, Power Query, pivot tables, OneDrive, and a connection to the card payment provider's reporting service.
