@@ -40,6 +40,8 @@ Monthly bank statement files are saved to a folder. The workbook reads every fil
 
 Categories used: stock, supplies, utilities, equipment, subscriptions, bank fees and rent.
 
+
+
 ### Dashboard
 
 A date selector drives every figure on the dashboard, with a choice of a single month or a custom range.
