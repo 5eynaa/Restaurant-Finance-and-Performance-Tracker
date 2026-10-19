@@ -1,4 +1,4 @@
-# Restaurant-Finance-and-Performance-Tracke
+# Restaurant Finance and Performance Tracker
 
 <p align="center">
     <img alt="Power Query" src="https://img.shields.io/badge/Power_Query-Excel-217346?logo=microsoftexcel&logoColor=white">
