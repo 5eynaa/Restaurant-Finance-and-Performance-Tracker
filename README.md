@@ -1,8 +1,7 @@
 # Restaurant-Finance-and-Performance-Tracke
 
 <p align="center">
-    <img alt="Excel" src="https://img.shields.io/badge/Excel-Workbook-217346?logo=microsoftexcel&logoColor=white">
-    <img alt="Power Query" src="https://img.shields.io/badge/Power_Query-M-217346?logo=microsoftexcel&logoColor=white">
+    <img alt="Power Query" src="https://img.shields.io/badge/Power_Query-Excel-217346?logo=microsoftexcel&logoColor=white">
     <img alt="Pivot Tables" src="https://img.shields.io/badge/Pivot_Tables-Excel-217346?logo=microsoftexcel&logoColor=white">
     <img alt="REST API" src="https://img.shields.io/badge/REST_API-Dojo-0B6EFD?logo=json&logoColor=white">
 </p>
