@@ -22,6 +22,8 @@ The system pulls data from three sources into one workbook and reports on it dai
 
 ## What it consists of
 
+### Card takings
+
 Card takings used to be downloaded as a file and copied into the workbook by hand every day. The workbook now connects straight to the card payment provider and brings the figures in by itself.
  
 The connection takes care of the following items:
@@ -32,15 +34,53 @@ The connection takes care of the following items:
 
 The figures land in their own table and feed the sales ledger by date via XLOOKUP. The automated figures and the hand-entered cash are kept apart.
 
+
+
+### Cash takings from the till
+
+The till does not offer an API, however, it does send an email every time a Z report (the end-of-day summary) is printed. That email holds the day's cash total, this becomes the data source.
+ 
+A Google Apps Script runs once every evening on a timer. Each run it:
+ 
+1. Searches the email inbox for Z report emails from the till provider, looking back over the last 14 days
+2. Strips the email down to plain text and reads the report date, print time, cash total and report ID
+3. Skips any report ID already recorded to prevent duplicate records or records getting overwritten
+4. Flags any date that ends up with two reports
+5. Adds the new rows to source Google Sheet and sorts it by date
+ 
+The Google Sheet is published as a link. Power Query in the workbook reads that link on refresh, and pulls each day's cash by date. A day with no Z report stays blank rather than showing zero.
+
+
+
 ### Spending from bank statements
 
 Monthly bank statement files are saved to a folder. The workbook reads every file in that folder and combines them.
 
-- The merchant/supplier name is pulled out of the bank's description text
-- A lookup list matches each name to a spending category
-- Anything the list does not recognise is labelled rather than dropped, so it stays visible and can be looked into
+On refresh, Power Query:
+ 
+- Reads every CSV in the folder and stacks them into one table
+- Sets the dates and amounts to the right data types
+- Pulls the merchant/supplier name out of the bank's description text
+- Matches each name to a spending category using a lookup list
 
 Categories used: stock, supplies, utilities, equipment, subscriptions, bank fees and rent.
+
+
+
+### Manual expenses
+
+Some costs are paid in cash and they don't appear on a bank statement, these go into a separate manual expenses table inside the workbook with a date, description, category and amount.
+
+
+
+### Salaries
+ 
+Staff clock in and out is on a paper timesheet rather than an electronic system. To get those hours into the workbook without retyping every line:
+ 
+1. A photo is taken of the timesheet
+2. The columns that matter are highlighted on the photo: date, clock-in time, clock-out time and hours worked
+3. The photo is passed to an AI model with OCR (Claude or Gemini), which transcribes the times under the matching headers in the salaries sheet
+4. The transcribed figures are checked against the original sheet before salaries are marked as final
 
 
 
@@ -59,18 +99,6 @@ The dashboard shows:
 - KPI details of selected time period
 
 <img width="1833" height="1104" alt="Cafe_finance_tracker_dashboard" src="https://github.com/user-attachments/assets/7273a519-b3c1-4d9c-bf5a-99eea8947c29" />
-
----
-
-## How it is set up
-
-Automated figures and hand-entered figures sit in separate tables, so an update only touches the automated side.
- 
-Spending that does not match the lookup list is labelled rather than removed, so it still appears in the totals.
- 
-Stock costs and running costs are recorded under separate categories and reported separately.
- 
-The steps that clean and combine the data are held in Power Query rather than in cell formulas, so they run again each time the workbook is updated.
 
 ---
 
