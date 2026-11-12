@@ -16,7 +16,8 @@ The system pulls data from three sources into one workbook and reports on it dai
 |---|---|---|
 | Dojo card terminal | REST API via Power Query | Daily card takings |
 | Till Z reports | Email read by Google Apps Script, published sheet read by Power Query | Daily cash takings |
-| Cash-paid costs | Manual expenses table inside the workbook | Expenses missing from the bank statements |
+| Business bank statements | Monthly CSV files dropped into a folder, combined by Power Query | Categorised expenses |
+| Cash costs | Manual expenses table inside the workbook | Expenses missing from the bank statements |
 | Handwritten staff timesheets | Photo transcribed with AI OCR, then checked by hand | Salaries |
 
 ## What it consists of
